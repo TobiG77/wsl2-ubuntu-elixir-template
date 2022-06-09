@@ -1,0 +1,27 @@
+apiVersion: skaffold/v2beta28
+kind: Config
+metadata:
+  name: template
+
+build:
+  local:
+    useBuildkit: true
+    push: false
+  artifacts:
+  - image: ubi-base
+    docker:
+      dockerfile: container-defs/ubi-base.dockerfile
+      buildArgs:
+        RHSM_TOKEN: "{{ .RHSM_TOKEN }}"
+  - image: elixir-dev
+    requires:
+    - image: ubi-base
+      alias: UBI_BASE
+    docker:
+      dockerfile: container-defs/elixir-dev.dockerfile
+  - image: phoenix-dev
+    requires:
+    - image: elixir-dev
+      alias: ELIXIR_DEV
+    docker:
+      dockerfile: container-defs/phoenix-dev.dockerfile
