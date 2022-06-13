@@ -14,6 +14,7 @@ ENV BASE_TOOLS="bind-utils \
     inotify-tools \
     iputils \
     less \
+    ncurses \
     openssl \
     procps \
     tar \
